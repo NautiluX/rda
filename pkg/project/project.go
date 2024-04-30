@@ -43,13 +43,13 @@ func NewProject(name, description, author, sponsor, reference string, projectTyp
 }
 
 func (p Project) RenderMarkdown() (markdown string) {
-	markdown += fmt.Sprintf("#%s - %s\n\n", p.ID, p.Name)
-	markdown += fmt.Sprintf("%s\n\n", p.Description)
-	markdown += fmt.Sprintf("Author: %s\n", p.Author)
-	markdown += fmt.Sprintf("Sponsor: %s\n", p.Sponsor)
-	markdown += fmt.Sprintf("Type: %s\n", p.Type)
-	markdown += fmt.Sprintf("Reference: %s\n", p.Reference)
-	markdown += fmt.Sprintf("Stage: **%s**\n", p.Stage)
+	markdown += fmt.Sprintf("# %s - %s\n\n\n", p.ID, p.Name)
+	markdown += fmt.Sprintf("%s\n\n\n", p.Description)
+	markdown += fmt.Sprintf("Author: %s\n\n", p.Author)
+	markdown += fmt.Sprintf("Sponsor: %s\n\n", p.Sponsor)
+	markdown += fmt.Sprintf("Type: %s\n\n", p.Type)
+	markdown += fmt.Sprintf("Reference: %s\n\n", p.Reference)
+	markdown += fmt.Sprintf("Stage: **%s**\n\n", p.Stage)
 
 	return markdown
 }
