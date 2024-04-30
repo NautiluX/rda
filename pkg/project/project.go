@@ -45,8 +45,8 @@ func NewProject(name, description, author, sponsor, reference string, projectTyp
 func (p *Project) Promote() {
 	switch p.Stage {
 	case ProjectStageSandbox:
-		p.Stage = ProjectStageProposed
-	case ProjectStageProposed:
+		p.Stage = ProjectStageIncubation
+	case ProjectStageIncubation:
 		p.Stage = ProjectStageGraduated
 	}
 }
