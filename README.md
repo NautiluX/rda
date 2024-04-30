@@ -21,6 +21,6 @@ Commit results and create PR against this repository.
 
 ## Index
 
-* [RDA0001 RDA Repository]("/rendered-registry/RDA0001 RDA Repository.md")
+* [RDA0001 RDA Repository]("/rendered-registry/RDA0001+RDA+Repository.md")
 
 
