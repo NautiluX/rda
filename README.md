@@ -24,8 +24,8 @@ Commit results and create PR against this repository.
 This command will update the stage as following:
 
 ```
-sandbox -> proposed
-proposed -> graduated.
+sandbox -> incubation
+incubation -> graduated.
 ```
 
 ```bash

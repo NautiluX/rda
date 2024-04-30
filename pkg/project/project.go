@@ -15,9 +15,9 @@ const (
 type ProjectStage string
 
 const (
-	ProjectStageSandbox   ProjectStage = "sandbox"
-	ProjectStageProposed  ProjectStage = "proposed"
-	ProjectStageGraduated ProjectStage = "graduated"
+	ProjectStageSandbox    ProjectStage = "sandbox"
+	ProjectStageIncubation ProjectStage = "incubation"
+	ProjectStageGraduated  ProjectStage = "graduated"
 )
 
 type Project struct {
