@@ -42,6 +42,15 @@ func NewProject(name, description, author, sponsor, reference string, projectTyp
 	return
 }
 
+func (p *Project) Promote() {
+	switch p.Stage {
+	case ProjectStageSandbox:
+		p.Stage = ProjectStageProposed
+	case ProjectStageProposed:
+		p.Stage = ProjectStageGraduated
+	}
+}
+
 func (p Project) RenderMarkdown() (markdown string) {
 	markdown += fmt.Sprintf("# %s - %s\n\n", p.ID, p.Name)
 	markdown += fmt.Sprintf("%s\n\n", p.Description)

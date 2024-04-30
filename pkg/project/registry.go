@@ -44,6 +44,20 @@ func ReadProjects() ([]Project, error) {
 
 	return parsedProjects, nil
 }
+
+func GetProjectById(projectId string) (*Project, error) {
+	projects, err := ReadProjects()
+	if err != nil {
+		return nil, fmt.Errorf("failed to read projects from registry: %w", err)
+	}
+	for i, _ := range projects {
+		if projects[i].ID == projectId {
+			return &projects[i], nil
+		}
+	}
+	return nil, fmt.Errorf("project not found: %s", projectId)
+}
+
 func AddToRegistry(p Project) error {
 	nextId, err := GetNextProjectID()
 	if err != nil {
@@ -51,6 +65,15 @@ func AddToRegistry(p Project) error {
 	}
 	fmt.Printf("Assigning project ID %s", nextId)
 	p.ID = nextId
+	WriteProjectYaml(p)
+	if err != nil {
+		return fmt.Errorf("couldn't write project yaml: %w", err)
+	}
+	return nil
+}
+
+func WriteProjectYaml(p Project) error {
+
 	yamlOutput, err := yaml.Marshal(p)
 	if err != nil {
 		return fmt.Errorf("couldn't marshal project: %w", err)
@@ -77,7 +100,7 @@ func RenderRegistry() error {
 			return fmt.Errorf("unable to write markdown to file %s: %w", filename, err)
 		}
 
-		index = append(index, fmt.Sprintf("[%s %s](/%s/%s)\n\n", p.ID, p.Name, RenderDir, url.PathEscape(filename)))
+		index = append(index, fmt.Sprintf("[%s %s](/%s/%s) (%s)\n\n", p.ID, p.Name, RenderDir, url.PathEscape(filename), string(p.Stage)))
 	}
 
 	err = RenderReadme(index)

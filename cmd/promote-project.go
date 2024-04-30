@@ -3,7 +3,12 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/NautiluX/rda/pkg/project"
 	"github.com/spf13/cobra"
+)
+
+const (
+	projectIdArg string = "id"
 )
 
 // projectCmd represents the project command
@@ -17,20 +22,27 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("project called")
+		projectId, err := cmd.Flags().GetString(projectIdArg)
+		if err != nil {
+			panic(fmt.Errorf("failed to get argument '%s': %w", projectIdArg, err))
+		}
+		projectToPromote, err := project.GetProjectById(projectId)
+		if err != nil {
+			panic(err)
+		}
+		projectToPromote.Promote()
+		err = project.WriteProjectYaml(*projectToPromote)
+		if err != nil {
+			panic(err)
+		}
+		err = project.RenderRegistry()
+		if err != nil {
+			panic(err)
+		}
 	},
 }
 
 func init() {
 	promoteCmd.AddCommand(promoteProjectCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// projectCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// projectCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	promoteProjectCmd.PersistentFlags().StringP(string(projectIdArg), "i", "", "Project ID (e.g. RDA0001)")
 }

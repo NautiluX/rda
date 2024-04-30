@@ -19,8 +19,25 @@ go build
 
 Commit results and create PR against this repository.
 
+## Promote a project
+
+This command will update the stage as following:
+
+```
+sandbox -> incubating
+incubating -> graduated.
+```
+
+```bash
+./rda promote project -i <Project ID> 
+```
+
+Project ID is the ID assigned to the RDA (e.g. `RDA0001`).
+
+Commit results and create PR against this repository.
+
 ## Index
 
-* [RDA0001 RDA Repository](/rendered-registry/RDA0001%20RDA%20Repository.md)
+* [RDA0001 RDA Repository](/rendered-registry/RDA0001%20RDA%20Repository.md) (sandbox)
 
 
