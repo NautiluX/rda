@@ -68,7 +68,7 @@ func RenderRegistry() error {
 	}
 
 	for _, p := range projects {
-		filename := fmt.Sprintf("%s %s", p.ID, p.Name)
+		filename := fmt.Sprintf("%s %s.md", p.ID, p.Name)
 
 		err = os.WriteFile(filepath.Join(RenderDir, filename), []byte(p.RenderMarkdown()), 0644)
 		if err != nil {
