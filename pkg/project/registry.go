@@ -77,7 +77,7 @@ func RenderRegistry() error {
 			return fmt.Errorf("unable to write markdown to file %s: %w", filename, err)
 		}
 
-		index = append(index, fmt.Sprintf("[%s %s](/%s/%s)\n\n", p.ID, p.Name, RenderDir, url.QueryEscape(filename)))
+		index = append(index, fmt.Sprintf("[%s %s](/%s/%s)\n\n", p.ID, p.Name, RenderDir, url.PathEscape(filename)))
 	}
 
 	err = RenderReadme(index)
