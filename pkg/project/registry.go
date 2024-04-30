@@ -62,6 +62,7 @@ func AddToRegistry(p Project) error {
 }
 
 func RenderRegistry() error {
+	index := []string{}
 	projects, err := ReadProjects()
 	if err != nil {
 		return fmt.Errorf("failed to read projects from registry: %w", err)
@@ -74,6 +75,31 @@ func RenderRegistry() error {
 		if err != nil {
 			return fmt.Errorf("unable to write markdown to file %s: %w", filename, err)
 		}
+
+		index = append(index, fmt.Sprintf("[%s %s](registry/%s)\n\n", p.ID, p.Name, filename))
+	}
+
+	err = RenderReadme(index)
+	if err != nil {
+		return fmt.Errorf("unable to render readme: %w", err)
+	}
+	return nil
+}
+
+func RenderReadme(index []string) error {
+	readme, err := os.ReadFile("README_INPUT.md")
+	if err != nil {
+		return fmt.Errorf("unable to read file README_INPUT.md: %w", err)
+	}
+
+	readmeString := string(readme)
+	for _, rdaLink := range index {
+		readmeString += fmt.Sprintf("\n* %s\n", rdaLink)
+	}
+
+	err = os.WriteFile("README.md", []byte(readmeString), 0644)
+	if err != nil {
+		return fmt.Errorf("unable to write README.md: %w", err)
 	}
 	return nil
 }

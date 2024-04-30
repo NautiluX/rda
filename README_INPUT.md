@@ -20,7 +20,3 @@ go build
 Commit results and create PR against this repository.
 
 ## Index
-
-* [RDA0001 RDA Repository](registry/RDA0001 RDA Repository.md)
-
-
