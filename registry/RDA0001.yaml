@@ -1,0 +1,9 @@
+name: RDA Repository
+description: An RDA repository in form of a git repo will track all RDA projects as
+  well as the CLI that facilitates the RDA workflow
+author: Manuel Dewald
+sponsor: Benson Ngoy
+reference: https://github.com/NautiluX/rda
+id: RDA0001
+type: process
+stage: sandbox
