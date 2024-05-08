@@ -9,6 +9,7 @@ import (
 
 const (
 	projectIdArg string = "id"
+	addEpicArg   string = "epic"
 )
 
 // projectCmd represents the project command
@@ -26,11 +27,15 @@ to quickly create a Cobra application.`,
 		if err != nil {
 			panic(fmt.Errorf("failed to get argument '%s': %w", projectIdArg, err))
 		}
+		epic, err := cmd.Flags().GetString(addEpicArg)
+		if err != nil {
+			panic(fmt.Errorf("failed to get argument '%s': %w", projectIdArg, err))
+		}
 		projectToPromote, err := project.GetProjectById(projectId)
 		if err != nil {
 			panic(err)
 		}
-		projectToPromote.Promote()
+		projectToPromote.Promote(epic)
 		err = project.WriteProjectYaml(*projectToPromote)
 		if err != nil {
 			panic(err)
@@ -44,5 +49,6 @@ to quickly create a Cobra application.`,
 
 func init() {
 	promoteCmd.AddCommand(promoteProjectCmd)
-	promoteProjectCmd.PersistentFlags().StringP(string(projectIdArg), "i", "", "Project ID (e.g. RDA0001)")
+	promoteProjectCmd.PersistentFlags().StringP(projectIdArg, "i", "", "Project ID (e.g. RDA0001)")
+	promoteProjectCmd.PersistentFlags().StringP(addEpicArg, "e", "", "Epic link to add")
 }

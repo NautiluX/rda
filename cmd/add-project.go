@@ -17,6 +17,7 @@ const (
 	sponsorArg     AddProjectArgument = "sponsor"
 	typeArg        AddProjectArgument = "type"
 	referenceArg   AddProjectArgument = "reference"
+	epicArg        AddProjectArgument = "epic"
 )
 
 // projectCmd represents the project command
@@ -36,7 +37,8 @@ to quickly create a Cobra application.`,
 		sponsor := optionalString(cmd, sponsorArg)
 		projectType := mandatoryString(cmd, typeArg)
 		reference := mandatoryString(cmd, referenceArg)
-		newProject := project.NewProject(name, description, author, sponsor, reference, project.ProjectType(projectType))
+		epic := mandatoryString(cmd, epicArg)
+		newProject := project.NewProject(name, description, author, sponsor, reference, epic, project.ProjectType(projectType))
 		err := project.AddToRegistry(newProject)
 		if err != nil {
 			panic(err)
@@ -76,4 +78,5 @@ func init() {
 	addProjectCmd.PersistentFlags().StringP(string(sponsorArg), "s", "", "Sponsor (optional)")
 	addProjectCmd.PersistentFlags().StringP(string(typeArg), "t", "", "Project Type (process, utility, other)")
 	addProjectCmd.PersistentFlags().StringP(string(referenceArg), "r", "", "Project Reference (e.g. doc, repository)")
+	addProjectCmd.PersistentFlags().StringP(string(epicArg), "e", "", "Spike epic link")
 }

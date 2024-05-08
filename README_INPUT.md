@@ -14,7 +14,7 @@ go build
 ## Propose a new project
 
 ```bash
-./rda add project -n <Project Name> -a <Your Name> -s <Sponsor Name> -d <Description> -r <Reference/Repository>
+./rda add project -n <Project Name> -a <Your Name> -s <Sponsor Name> -d <Description> -r <Reference/Repository> -e <epic link>
 ```
 
 Commit results and create PR against this repository.
@@ -29,7 +29,7 @@ incubation -> graduated.
 ```
 
 ```bash
-./rda promote project -i <Project ID> 
+./rda promote project -i <Project ID> -e <epic link>
 ```
 
 Project ID is the ID assigned to the RDA (e.g. `RDA0001`).

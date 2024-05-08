@@ -5,5 +5,7 @@ author: Manuel Dewald
 sponsor: Benson Ngoy
 reference: https://github.com/NautiluX/rda
 id: RDA0001
+epics:
+  sandbox: https://issues.redhat.com/browse/OSD-22933
 stage: sandbox
 type: process

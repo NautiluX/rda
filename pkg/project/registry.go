@@ -16,13 +16,8 @@ const (
 	RenderDir   string = "rendered-registry"
 )
 
-var parsedProjects []Project
-
 func ReadProjects() ([]Project, error) {
-	if parsedProjects != nil {
-		return parsedProjects, nil
-	}
-	parsedProjects = []Project{}
+	parsedProjects := []Project{}
 	err := filepath.Walk(RegistryDir, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			yamlContent, err := os.ReadFile(path)
@@ -63,9 +58,9 @@ func AddToRegistry(p Project) error {
 	if err != nil {
 		return fmt.Errorf("couldn't get next project ID: %w", err)
 	}
-	fmt.Printf("Assigning project ID %s", nextId)
+	fmt.Printf("Assigning project ID %s\n", nextId)
 	p.ID = nextId
-	WriteProjectYaml(p)
+	err = WriteProjectYaml(p)
 	if err != nil {
 		return fmt.Errorf("couldn't write project yaml: %w", err)
 	}
